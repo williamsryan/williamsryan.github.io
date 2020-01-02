@@ -1,3 +1,2 @@
 # khotitekofe.github.io
-Personal site assets
-Will update later.
+Personal site assets; will update later.
