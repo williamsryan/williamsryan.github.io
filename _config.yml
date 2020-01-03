@@ -14,6 +14,8 @@
 # remote_theme           : "mmistakes/minimal-mistakes"
 minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
+environemnt: "production"
+
 # Site Settings
 locale                   : "es-ES"
 title                    : "Ryan Williams"
@@ -102,7 +104,7 @@ analytics:
   provider               : "google-gtag" # false (default), "google", "google-universal", "custom"
   google:
     tracking_id          : "UA-155294769-1"
-    anonymize_ip         : # true, false (default)
+    anonymize_ip         : false
 
 
 # Site Author
