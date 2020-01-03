@@ -3,5 +3,5 @@ layout: posts
 permalink: /projects/
 ---
 
-## [PRAT](./prat.md)
+## [PRAT](./prat)
 Protocol Representation and Analysis Toolkit
