@@ -109,13 +109,13 @@ analytics:
 author:
   name             : "Ryan Williams"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Bio TBD"
-  location         : "Cambridge, MA"
+  bio              : "CS PhD Student | Program Analysis | Formal Methods"
+  location         : "Boston, MA"
   email            : "ryan.rpwilliams@gmail.com"
   links:
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
-      url: mailto:ryan.rpwilliams@gmail.com
+    #- label: "Email"
+    #  icon: "fas fa-fw fa-envelope-square"
+    #  url: mailto:ryan.rpwilliams@gmail.com
     #- label: "Website"
     #  icon: "fas fa-fw fa-link"
       # url: "https://your-website.com"
