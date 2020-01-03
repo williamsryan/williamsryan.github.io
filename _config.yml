@@ -26,7 +26,7 @@ twitter_username: lardofthedance
 
 # Build settings
 markdown: kramdown
-show_downloads: true
+show_downloads: false
 google_analytics:
 theme: jekyll-theme-minimal
 plugins:
