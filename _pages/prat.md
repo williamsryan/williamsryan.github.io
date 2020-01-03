@@ -3,7 +3,7 @@ layout: posts
 permalink: /projects/prat/
 ---
 
-## Program Representation and Analysis Toolkit (PRAT)
+## Protocol Representation and Analysis Toolkit (PRAT)
 
 TODO: Writeup about this project/publication later.
 
