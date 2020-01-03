@@ -109,8 +109,8 @@ analytics:
 author:
   name             : "Ryan Williams"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : >
-    CS PhD Student | Program Analysis | Formal Methods
+  bio              : >-
+    CS PhD Student|Program Analysis|Formal Methods
   location         : "Boston, MA"
   email            : "ryan.rpwilliams@gmail.com"
   links:
