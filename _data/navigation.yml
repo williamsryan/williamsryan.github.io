@@ -2,11 +2,15 @@
 main:
   - title: "Quick-Start Guide"
     url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
+  - title: "Projects"
+    url: /projects.md
   - title: "About"
     url: /about.md
-  - title: "Sample Posts"
-    url: /year-archive/
-  - title: "Sample Collections"
-    url: /collection-archive/
-  - title: "Sitemap"
-    url: /sitemap/
+  - title: "CV"
+    url: /cv.md
+  #- title: "Sample Posts"
+  #  url: /year-archive/
+  #- title: "Sample Collections"
+  #  url: /collection-archive/
+  #- title: "Sitemap"
+  #  url: /sitemap/
