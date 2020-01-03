@@ -2,7 +2,6 @@
 layout: posts
 title:  "Default Stuff"
 date:   2020-01-02 13:12:31 +0000
-categories: template defaults
 ---
 Text can be **bold**, _italic_, or ~~strikethrough~~.
 
