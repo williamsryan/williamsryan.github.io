@@ -1,7 +1,6 @@
 ---
 layout: posts
-title:  "Test Post"
-date:   2020-01-03 16:38:00 +0000
+permalink: /projects/prat/
 ---
 
 ## Program Representation and Analysis Toolkit (PRAT)
