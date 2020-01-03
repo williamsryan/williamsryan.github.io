@@ -2,8 +2,6 @@
 layout: post
 ---
 
-## Welcome to another page
+This will be the template for creating new posts later.
 
-_yay_
-
-[back](./)
+[<--](./)

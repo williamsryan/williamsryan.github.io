@@ -1,5 +1,6 @@
 ---
-layout: default
+layout: home
+author_profile: true
 ---
 
 Text can be **bold**, _italic_, or ~~strikethrough~~.
