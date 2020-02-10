@@ -81,7 +81,7 @@ analytics:
 # Site Author
 author:
   name             : "Ryan Williams"
-  avatar           : "profile.png"
+  avatar           : "images/profile.png"
   bio              : "PhD Student at Northeastern University"
   location         : "Cambridge, MA"
   employer         :
