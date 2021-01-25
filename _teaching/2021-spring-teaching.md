@@ -1,11 +1,11 @@
 ---
-title: "Teaching experience 2"
+title: "Cybersecurity 3740"
 collection: teaching
-type: "Workshop"
-permalink: /teaching/2015-spring-teaching-1
-venue: "University 1, Department"
-date: 2015-01-01
-location: "City, Country"
+type: "Course"
+permalink: /teaching/2021-spring-teaching
+venue: "Northeastern University"
+date: 2021-01-19
+location: "Boston, Massachusetts"
 ---
 
 TESTING TEACHING PAGE.
