@@ -8,6 +8,3 @@ date: 2021-01-19
 location: "Boston, Massachusetts"
 ---
 
-Heading 1
-======
-
