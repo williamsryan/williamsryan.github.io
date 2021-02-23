@@ -1,5 +1,5 @@
 ---
-title: "Cybersecurity 3740/5740"
+title: "Cybersecurity 3740/5130"
 collection: teaching
 type: Teaching Assistant
 permalink: /teaching/2020-fall-teaching
