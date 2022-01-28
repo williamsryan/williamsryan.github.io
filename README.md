@@ -1,2 +1,3 @@
-# khotitekofe.github.io
-Personal site assets; will update later.
+## Personal Site
+
+Assets for personal Hakyll-based site.
