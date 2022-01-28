@@ -3,6 +3,7 @@ _site
 .jekyll-metadata
 
 .stack-work/
+_cache/
 
 .DS_Store
 
