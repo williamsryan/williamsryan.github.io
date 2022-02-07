@@ -1,5 +1,13 @@
-resolver: lts-17.15
+resolver: 'lts-17.15'
 packages:
-  - .
+- '.'
 extra-deps:
-  - hakyll-4.15.1.1  # Or a later version you installed
+- 'hakyll-4.15.1.1'
+nix:
+  packages:
+  - graphviz
+  - imagemagick
+  # - texlive.combined.scheme-full  # Just for `standalone.cls`.
+  - zlib
+  - openssh
+  - rsync
