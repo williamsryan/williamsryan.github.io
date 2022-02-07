@@ -6,8 +6,7 @@ import           Hakyll
 
 -- Configuration stuff to get this working on GitHub Pages.
 config :: Configuration
-config = defaultConfiguration
-{
+config = defaultConfiguration {
     destinationDirectory = "docs"
 }  
 
