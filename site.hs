@@ -5,8 +5,15 @@ import           Hakyll
 
 
 --------------------------------------------------------------------------------
+
+-- Configuration stuff to get this working on GitHub Pages.
+config :: Configuration
+config = defaultConfiguration
+  { destinationDirectory = "docs"
+  }
+  
 main :: IO ()
-main = hakyll $ do
+main = hakyllWith config $ do
     match "images/*" $ do
         route   idRoute
         compile copyFileCompiler
