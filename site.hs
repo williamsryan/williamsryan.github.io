@@ -45,7 +45,8 @@ main = hakyllWith config $ do
         route $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
-            >>= loadAndApplyTemplate "templates/default.html" postCtx
+            >>= loadAndApplyTemplate "templates/content.html" defaultContext
+            >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
 
     create ["archive.html"] $ do
@@ -73,6 +74,7 @@ main = hakyllWith config $ do
 
             getResourceBody
                 >>= applyAsTemplate indexCtx
+                >>= loadAndApplyTemplate "templates/content.html" indexCtx
                 >>= loadAndApplyTemplate "templates/default.html" indexCtx
                 >>= relativizeUrls
 
