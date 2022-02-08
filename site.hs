@@ -1,6 +1,16 @@
 --------------------------------------------------------------------------------
-{-# LANGUAGE OverloadedStrings #-}
-import           Data.Monoid (mappend)
+{-# LANGUAGE Arrows             #-}
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE OverloadedStrings  #-}
+    
+import           Data.Monoid     ((<>))
+import           Prelude         hiding (id)
+import           System.Exit     (ExitCode)
+import           System.FilePath (replaceExtension, takeDirectory)
+import qualified Data.Text as T
+import qualified System.Process  as Process
+import qualified Text.Pandoc     as Pandoc
+
 import           Hakyll
 --------------------------------------------------------------------------------
 
@@ -67,7 +77,7 @@ main = hakyllWith config $ do
                 >>= relativizeUrls
 
     -- Read templates.
-    match "templates/*" $ compile templateBodyCompiler
+    match "templates/*" $ compile $ templateCompiler
 
     -- CV as PDF.
     -- match "cv.markdown" $ version "pdf" $ do
