@@ -1,6 +1,10 @@
 .PHONY : all test clean
 
-all : test
+all : watch
+
+watch :
+	stack build
+	stack exec site watch
 
 test :
 	$(info ************  TEST TODO ************)
