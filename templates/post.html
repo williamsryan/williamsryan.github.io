@@ -1,11 +1,6 @@
-<article>
-    <section class="header">
-        Posted on $date$
-        $if(author)$
-            by $author$
-        $endif$
-    </section>
-    <section>
-        $body$
-    </section>
-</article>
+<h1 class="note-title">$title$</h1>
+<div class="soft">
+  $if(date)$<span class="date">Date: $date$</span>$endif$
+</div>
+
+$body$
