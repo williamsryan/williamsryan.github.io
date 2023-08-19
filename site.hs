@@ -67,28 +67,12 @@ main = hakyllWith config $ do
                 >>= loadAndApplyTemplate "templates/default.html" ctx
                 >>= relativizeUrls
 
-    -- Render each reserach item.
-    -- match "research/*" $ do
-    --     route   $ setExtension ".html"
-    --     compile $ pandocCompiler
-    --         >>= loadAndApplyTemplate "templates/research.html" postCtx
-    --         >>= loadAndApplyTemplate "templates/content.html" defaultContext
-    --         >>= loadAndApplyTemplate "templates/default.html" defaultContext
-    --         >>= relativizeUrls
-
-    -- -- Rsearch list.
-    -- create ["research.html"] $ do
-    --     route idRoute
-    --     compile $ do
-    --         research <- recentFirst =<< loadAll "research/*"
-    --         let ctx =   constField "title" "Research" <>
-    --                     listField "research" postCtx (return research) <>
-    --                     defaultContext
-    --         makeItem ""
-    --             >>= loadAndApplyTemplate "templates/research.html" ctx
-    --             >>= loadAndApplyTemplate "templates/content.html" ctx
-    --             >>= loadAndApplyTemplate "templates/default.html" ctx
-    --             >>= relativizeUrls
+    -- Better way of rendering arbitrary dirs (talks, teaching, etc.).
+    match "**index.md" $ do
+        route $ setExtension "html"
+        compile $ pandocCompiler
+            >>= loadAndApplyTemplate "templates/default.html" defaultContext
+            >>= relativizeUrls
 
     -- Index.
     match "index.html" $ do
