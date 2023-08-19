@@ -1,14 +1,3 @@
-body {
-  font-family: "arno-pro";
-  /*max-width: 33em;*/
-  margin: auto;
-  margin-bottom: 5rem;
-  background-color: #fffff8;
-  color: #555;
-}
-
-/* Ensure that paragraphs lists, and images respect the margins */
-
 figcaption {
   line-height: 1.25;
   width: 80%;
@@ -93,25 +82,12 @@ a:hover {
 }
 
 .navbar-brand {
-  font-size: 2rem;
-  font-style: italic;
+  font-family: "myriad-pro", sans-serif;
+  font-size: 1.8rem;
+  line-height: 1;
   padding-top: 1em;
+  margin-left: -30px;
 }
-
-.portrait img {
-  width: 7rem;
-  height: 7rem;
-  margin: auto;
-  border-radius: 50%;
-  background-size: cover;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  margin-top: 1.5rem;
-  margin-bottom: 2rem;
-  position: relative;
-}
-
-.nav-link {}
 
 .sourceCode {
   font-family: Menlo, Consolas, monospace;
@@ -123,16 +99,4 @@ code {
   font-family: Consolas, Menlo;
   background: white;
   color: maroon;
-}
-
-.headshot {
-  height: 9rem;
-  width: 9rem;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-top: 1.5rem;
-}
-
-.date {
-  font-style: italic;
 }

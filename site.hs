@@ -38,11 +38,11 @@ main = hakyllWith config $ do
             csses <- loadAll "assets/*.css"
             makeItem $ unlines $ map itemBody csses
 
-    match (fromList ["about.rst", "contact.markdown"]) $ do
-        route   $ setExtension "html"
-        compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/default.html" defaultContext
-            >>= relativizeUrls
+    -- match (fromList ["about.rst", "contact.markdown"]) $ do
+    --     route   $ setExtension "html"
+    --     compile $ pandocCompiler
+    --         >>= loadAndApplyTemplate "templates/default.html" defaultContext
+    --         >>= relativizeUrls
 
     -- Render each and every post.
     match "posts/*" $ do
@@ -71,6 +71,7 @@ main = hakyllWith config $ do
     match "**index.md" $ do
         route $ setExtension "html"
         compile $ pandocCompiler
+            >>= loadAndApplyTemplate "templates/content.html" defaultContext
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
 

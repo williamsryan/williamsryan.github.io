@@ -1,11 +1,15 @@
 <!doctype html>
 <html lang="en">
-    $partial("templates/head.html")$
-    <body>
+$partial("templates/head.html")$
+
+<body>
+    <div class="page-wrapper">
         $partial("templates/nav.html")$
-        <div class="container">
+        <article class="page">
             $body$
-        </div>
-        $partial("templates/js.html")$
-      </body>
+        </article>
+    </div>
+    $partial("templates/js.html")$
+</body>
+
 </html>
