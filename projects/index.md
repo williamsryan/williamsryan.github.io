@@ -6,11 +6,10 @@ layout: page
 Current projects
 ----------------
 
-* TODO #1
-* TODO #2
+* [Program Analysis for WebAssembly Binaries](#) (Northeastern University)
+* [Synthesizing Microarchitectural Leakage Contracts from Counterexamples](#) (IMDEA Software Institute)
 
-Past projects
+Other projects
 -------------
 
-* TODO #1
-* TODO #2
+* [Foundations of Coq](#) ([Pollen](https://docs.racket-lang.org/pollen/)-based e-book)
