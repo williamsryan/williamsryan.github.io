@@ -31,11 +31,11 @@ main = hakyllWith config $ do
         compile copyFileCompiler
 
     -- Compress CSS into one file.
-    match "assets/*.css" $ compile compressCssCompiler
+    match "css/*" $ compile compressCssCompiler
     create ["style.css"] $ do
         route   idRoute
         compile $ do
-            csses <- loadAll "assets/*.css"
+            csses <- loadAll "css/*.css"
             makeItem $ unlines $ map itemBody csses
 
     -- match (fromList ["about.rst", "contact.markdown"]) $ do
