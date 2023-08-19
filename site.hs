@@ -58,8 +58,7 @@ main = hakyllWith config $ do
         route idRoute
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
-            let ctx =   constField "title" "Posts" <>
-                        listField "posts" postCtx (return posts) <>
+            let ctx =   listField "posts" postCtx (return posts) <>
                         defaultContext
             makeItem ""
                 >>= loadAndApplyTemplate "templates/posts.html" ctx
