@@ -1,5 +1,5 @@
 ---
-title: Research
+title: Projects
 layout: page
 ---
 

@@ -67,6 +67,7 @@ h3 {
 }
 
 .note-title {
+  font-family: "myriad-pro";
   margin-top: 2rem;
   margin-bottom: .25rem;
   font-size: 1.8rem;
@@ -99,4 +100,10 @@ code {
   font-family: Consolas, Menlo;
   background: white;
   color: maroon;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 25%;
+  float: right;
 }

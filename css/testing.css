@@ -652,7 +652,8 @@ not screen and (max-width: 766px) {
 }
 
 article .entry-content {
-    padding-bottom: 15px;
+    font-family: "myriad-pro";
+    padding-bottom: 1px;
     counter-reset: h1counter h2counter h3counter h4counter h5counter
 }
 
