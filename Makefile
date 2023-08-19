@@ -10,4 +10,4 @@ test :
 	$(info ************  TEST TODO ************)
 
 clean : 
-	rm -rf out/ *.log instrumented/* .stack-work/ _cache/ _site/
+	rm -rf out/ *.log instrumented/* .stack-work/ _cache/ _site/ docs/

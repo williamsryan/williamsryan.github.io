@@ -46,11 +46,9 @@ main = hakyllWith config $ do
 
     -- Render each and every post.
     match "posts/*" $ do
-        route   $ setExtension ".html"
+        route   $ setExtension "html"
         compile $ pandocCompiler
-            -- >>= saveSnapshot "content"
-            -- >>= return . fmap demoteHeaders
-            >>= loadAndApplyTemplate "templates/post.html" postCtx
+            >>= loadAndApplyTemplate "templates/post.html" defaultContext
             >>= loadAndApplyTemplate "templates/content.html" defaultContext
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
@@ -69,19 +67,28 @@ main = hakyllWith config $ do
                 >>= loadAndApplyTemplate "templates/default.html" ctx
                 >>= relativizeUrls
 
-    -- Rsearch list.
-    create ["research.html"] $ do
-        route idRoute
-        compile $ do
-            research <- recentFirst =<< loadAll "research/*"
-            let ctx =   constField "title" "Research" <>
-                        listField "research" postCtx (return research) <>
-                        defaultContext
-            makeItem ""
-                >>= loadAndApplyTemplate "templates/posts.html" ctx
-                >>= loadAndApplyTemplate "templates/content.html" ctx
-                >>= loadAndApplyTemplate "templates/default.html" ctx
-                >>= relativizeUrls
+    -- Render each reserach item.
+    -- match "research/*" $ do
+    --     route   $ setExtension ".html"
+    --     compile $ pandocCompiler
+    --         >>= loadAndApplyTemplate "templates/research.html" postCtx
+    --         >>= loadAndApplyTemplate "templates/content.html" defaultContext
+    --         >>= loadAndApplyTemplate "templates/default.html" defaultContext
+    --         >>= relativizeUrls
+
+    -- -- Rsearch list.
+    -- create ["research.html"] $ do
+    --     route idRoute
+    --     compile $ do
+    --         research <- recentFirst =<< loadAll "research/*"
+    --         let ctx =   constField "title" "Research" <>
+    --                     listField "research" postCtx (return research) <>
+    --                     defaultContext
+    --         makeItem ""
+    --             >>= loadAndApplyTemplate "templates/research.html" ctx
+    --             >>= loadAndApplyTemplate "templates/content.html" ctx
+    --             >>= loadAndApplyTemplate "templates/default.html" ctx
+    --             >>= relativizeUrls
 
     -- Index.
     match "index.html" $ do
@@ -98,7 +105,7 @@ main = hakyllWith config $ do
                 >>= loadAndApplyTemplate "templates/default.html" indexCtx
                 >>= relativizeUrls
 
-    -- Read templates.
+    -- Compile templates.
     match "templates/*" $ compile $ templateCompiler
 
     -- Render the 404 page, we don't relativize URL's here.
@@ -118,6 +125,10 @@ main = hakyllWith config $ do
     --         >>= xelatex
 
 --------------------------------------------------------------------------------
+
+--------------
+-- Contexts.
+--------------
 postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" `mappend`
