@@ -67,7 +67,10 @@ main = hakyllWith config $ do
                 >>= relativizeUrls
 
     -- Better way of rendering arbitrary dirs (talks, teaching, etc.).
-    match "**index.md" $ do
+    match (
+        "**index.md"
+        -- .&&. complement "books/**"
+        ) $ do
         route $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/content.html" defaultContext
