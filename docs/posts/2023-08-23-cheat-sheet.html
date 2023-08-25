@@ -77,7 +77,15 @@
   
 </div>
 
-<p>TODO.</p>
+<p>Place holder for now. This is a growing list of Coq-specific things I needed to clarify while working on the Wasm project.</p>
+<h2 id="reflexivity">reflexivity</h2>
+<p><code>reflexivity</code> is a basic tactic to be used when proving something equals itself.</p>
+<pre class="coq"><code>Lemma use_reflexivity:
+    forall x: Set, x = x.
+Proof.
+    intro.
+    reflexivity.
+Qed.</code></pre>
 
     <div style="clear: both"></div>
 
