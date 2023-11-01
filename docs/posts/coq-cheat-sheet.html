@@ -68,16 +68,21 @@
             <div class="entry-content">
     <h1 class="note-title">Coq Tactics Cheatsheet</h1>
 <div class="soft">
-  
+  <span class="date">Date: 2023-11-01</span>
 </div>
 
+<h2>Table of Contents</h2><ul>
+<li><a href="#solving-simple-goals" id="toc-solving-simple-goals"><span class="toc-section-number">1</span> Solving Simple Goals</a>
+<ul>
+<li><a href="#reflexivity" id="toc-reflexivity"><span class="toc-section-number">1.1</span> reflexivity</a></li>
+<li><a href="#assumption" id="toc-assumption"><span class="toc-section-number">1.2</span> assumption</a></li>
+</ul></li>
+</ul>
+<h1 data-number="1" id="solving-simple-goals"><span class="header-section-number">1</span> Solving Simple Goals</h1>
 <p>This is a growing list of Coq-specific things I encountered while working on a modeling project.
-I figured this could help as an introductory guide to Coq for those unfamiliar.</p>
-<h2>
-Solving Simple Goals
-</h2>
-<p>Typically, when writing Coq proofs, your goal is to transform or simplify the goal until it can be solved using one of the following tactics.</p>
-<h2 id="reflexivity">reflexivity</h2>
+I figured this could help as an introductory guide to Coq for those unfamiliar.
+Typically, when writing Coq proofs, your goal is to transform or simplify the goal until it can be solved using one of the following tactics.</p>
+<h2 data-number="1.1" id="reflexivity"><span class="header-section-number">1.1</span> reflexivity</h2>
 <p><code>reflexivity</code> is a basic tactic to be used when proving something equals itself:</p>
 <pre><code class="language-coq">Lemma use_reflexivity:
     (* Simple theorem, x always equals x *)
@@ -88,7 +93,7 @@ Proof.
     reflexivity.
 Qed.
 </code></pre>
-<h2 id="assumption">assumption</h2>
+<h2 data-number="1.2" id="assumption"><span class="header-section-number">1.2</span> assumption</h2>
 <p>When the goal is already in the context, you can use <code>assumption</code> to prove it:</p>
 <pre><code class="language-coq">Lemma p_implies_p : forall P : Prop,
     (* P implies P is always true *)

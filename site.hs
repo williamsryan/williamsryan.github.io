@@ -3,12 +3,23 @@
 module Main (main) where
 
 import           Control.Monad
-import           Prelude         hiding (id)
+import           Prelude
 -- import           System.Exit
 import           System.FilePath (replaceExtension, takeDirectory)
 import qualified Data.Text as T
 import qualified System.Process  as Process
-import qualified Text.Pandoc     as Pandoc
+import Text.Pandoc (
+      WriterOptions
+    , writerTemplate
+    , writerTopLevelDivision
+    , writerTableOfContents
+    , writerNumberSections
+    , writerHTMLMathMethod
+    , HTMLMathMethod(MathJax)
+    , compileTemplate
+    , runPure
+    , runWithDefaultPartials
+    )
 
 import Hakyll
 
@@ -18,7 +29,16 @@ import Hakyll
 config :: Configuration
 config = defaultConfiguration {
     destinationDirectory = "docs"
-} 
+}
+
+-----------------
+-- Etc compilers.
+-----------------
+-- Compile the TOC template and store it in a compiler
+-- tocTemplateCompiler :: Compiler Template
+-- tocTemplateCompiler = do
+--     let tocTemplateStr = "<h2>Table of Contents</h2>\n$toc$\n$body$"
+--     compileTemplate "tocTemplate" tocTemplateStr
 
 --------------
 -- Entrypoint.
@@ -73,12 +93,23 @@ main = hakyllWith config $ do
 
     -- Render each and every post.
     match "posts/*" $ do
-        route   $ setExtension "html"
-        compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/post.html" defaultContext
-            >>= loadAndApplyTemplate "templates/content.html" defaultContext
-            >>= loadAndApplyTemplate "templates/default.html" defaultContext
-            >>= relativizeUrls
+        route $ setExtension "html"
+        compile $ do
+            item <- getResourceBody
+            toc <- getMetadataField (itemIdentifier item) "toc"
+            let ctx = defaultContext
+            let tocTemplate =
+                    either error id $ either (error . show) id $
+                    runPure $ runWithDefaultPartials $
+                    compileTemplate "" "<h2>Table of Contents</h2>$toc$\n$body$"
+            let writerOptions' = case toc of
+                    Just _  -> withTOC { writerTemplate = Just tocTemplate }
+                    Nothing -> withoutTOC
+            pandocCompilerWith defaultHakyllReaderOptions writerOptions'
+                >>= loadAndApplyTemplate "templates/post.html" ctx
+                >>= loadAndApplyTemplate "templates/content.html" ctx
+                >>= loadAndApplyTemplate "templates/default.html" ctx
+                >>= relativizeUrls
 
     -- Post list.
     create ["posts.html"] $ do
@@ -114,7 +145,6 @@ main = hakyllWith config $ do
                     listField "posts" postCtx (return posts) `mappend`
                     listField "news" postCtx (return news) `mappend`
                     defaultContext
-
             getResourceBody
                 >>= applyAsTemplate indexCtx
                 >>= loadAndApplyTemplate "templates/content.html" indexCtx
@@ -149,3 +179,16 @@ postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" `mappend`
     defaultContext
+
+withTOC :: WriterOptions
+withTOC = defaultHakyllWriterOptions{
+    writerNumberSections  = True,
+    writerTableOfContents = True,
+    -- writerTemplate = Just tocTemplate,
+    writerHTMLMathMethod = MathJax ""
+}
+
+withoutTOC :: WriterOptions
+withoutTOC = defaultHakyllWriterOptions{
+    writerHTMLMathMethod = MathJax ""
+}

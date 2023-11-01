@@ -1,11 +1,12 @@
 ---
 title: Coq Tactics Cheatsheet
+date: 2023-11-01
+toc: true
 ---
 
+# Solving Simple Goals
 This is a growing list of Coq-specific things I encountered while working on a modeling project.
 I figured this could help as an introductory guide to Coq for those unfamiliar.
-
-<h2>Solving Simple Goals</h2>
 Typically, when writing Coq proofs, your goal is to transform or simplify the goal until it can be solved using one of the following tactics.
 
 reflexivity
