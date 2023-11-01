@@ -13,8 +13,10 @@ reflexivity
 `reflexivity` is a basic tactic to be used when proving something equals itself:
 
 <pre><code class="language-coq">Lemma use_reflexivity:
+    (* Simple theorem, x always equals x *)
     forall x: Set, x = x.
 Proof.
+    (* Iintroduce variables/hypotheses *)
     intro.
     reflexivity.
 Qed.
@@ -25,8 +27,10 @@ assumption
 When the goal is already in the context, you can use `assumption` to prove it:
 
 <pre><code class="language-coq">Lemma p_implies_p : forall P : Prop,
+    (* P implies P is always true *)
     P -> P.
 Proof.
+    (* We can specify names for introduced variables/hypotheses *)
     intros P P_holds.
 </code></pre>
 After introducing this hypothesis, `P_holds` (stating that `P` is true) into the context, we can use `assumption` to complete the proof:
