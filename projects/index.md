@@ -12,4 +12,4 @@ Current projects
 Other projects
 -------------
 
-* [Foundations of Coq](/books/beautiful-coq) ([Pollen](https://docs.racket-lang.org/pollen/)-based e-book)
+* [Foundations of Coq](/books/beautiful-coq) (<a href="https://docs.racket-lang.org/pollen/" target="_blank">Pollen</a>-based e-book)

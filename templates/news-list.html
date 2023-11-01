@@ -1,0 +1,7 @@
+<ul>
+    $for(news)$
+    <li>
+        Our paper $if(paperUrl)$<a href="$paperUrl$" target="_blank">$title$</a>$else$<b>$title$</b>$endif$ was accepted to <a href="$linkUrl$" target="_blank">$linkText$</a> - $date$
+    </li>
+    $endfor$
+</ul>

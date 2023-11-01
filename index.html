@@ -2,15 +2,24 @@
 title: Home
 ---
 
-<img src="/images/ferris.png" style="float: right;" />
-<!-- <img class="avatar" src="/images/picture.jpeg"/> -->
+<div class="container">
+    <img class="avatar" src="/images/picture.jpeg"/>
+    <!-- <img class="avatar" src="/images/ferris.png" /> -->
 
-I am currently a PhD candidate at Northeastern University in the <a href="https://seclab.nu/" target="_blank">NEU SecLab</a> where I am advised by <a href="https://coe.northeastern.edu/people/kirda-engin/" target="_blank">Engin Kirda</a>.
-I also work as a visiting researcher at the <a href="https://software.imdea.org/" target="_blank">IMDEA Software Institute</a> under supervision of <a href="https://mguarnieri.github.io/" target="_blank">Marco Guarnieri</a>.
+    <div class="text-block">
+        I am currently a PhD candidate at Northeastern University in the <a href="https://seclab.nu/" target="_blank">NEU SecLab</a> where I am advised by <a href="https://coe.northeastern.edu/people/kirda-engin/" target="_blank">Engin Kirda</a>.
+        I also work as a visiting researcher at the <a href="https://software.imdea.org/" target="_blank">IMDEA Software Institute</a> under supervision of <a href="https://mguarnieri.github.io/" target="_blank">Marco Guarnieri</a>.
 
-<br /><br />
-My primary research interests are in program analysis and formal methods.
-Specifically, I am interested in developing techniques to mitigate classes of vulerabilities while being able to formally reason about given properties.
+        <br /><br />
+        My primary research interests lie in the intersection of program analysis and formal methods.
+        Specifically, I am interested in developing techniques to mitigate classes of vulnerabilities in software while simultaneously enabling formal reasoning about desired properties.
+    </div>
+</div>
 
-<h2>News</h2>
+
+<h2 class="posts">News</h2>
+$partial("templates/news-list.html")$
+
+
+<h2 class="posts">Recent Posts</h2>
 $partial("templates/list.html")$

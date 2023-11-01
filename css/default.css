@@ -52,8 +52,8 @@ h1 {
 h2 {
   font-family: "myriad-pro";
   font-size: 1.2rem;
-  padding-top: 1.3rem;
-  padding-bottom: 0.7rem;
+  padding-top: 1.1rem;
+  /* padding-bottom: 0.7rem; */
 }
 
 h3 {
@@ -102,8 +102,27 @@ code {
   color: maroon;
 }
 
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
 .avatar {
   border-radius: 50%;
   width: 25%;
-  float: right;
+  object-fit: cover;
+  float: left;
+  margin-right: 20px;
+  margin-left: -18px;
+}
+
+.text-block {
+  /* flex-grow: 1; */
+  display: block;
+}
+
+.posts {
+  border-top: 1px solid #efefef;
+  margin-top: 20px;
 }

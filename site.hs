@@ -44,6 +44,28 @@ main = hakyllWith config $ do
     --         >>= loadAndApplyTemplate "templates/default.html" defaultContext
     --         >>= relativizeUrls
 
+    -- Render news posts.
+    match "news/*" $ do
+        route   $ setExtension "html"
+        compile $ pandocCompiler
+            >>= loadAndApplyTemplate "templates/news.html" defaultContext
+            >>= loadAndApplyTemplate "templates/content.html" defaultContext
+            >>= loadAndApplyTemplate "templates/default.html" defaultContext
+            >>= relativizeUrls
+
+    -- News list.
+    create ["news.html"] $ do
+        route idRoute
+        compile $ do
+            news <- recentFirst =<< loadAll "news/*"
+            let ctx =   listField "news" postCtx (return news) <>
+                        defaultContext
+            makeItem ""
+                >>= loadAndApplyTemplate "templates/news-list.html" ctx
+                >>= loadAndApplyTemplate "templates/content.html" ctx
+                >>= loadAndApplyTemplate "templates/default.html" ctx
+                >>= relativizeUrls
+
     -- Render each and every post.
     match "posts/*" $ do
         route   $ setExtension "html"
@@ -82,8 +104,10 @@ main = hakyllWith config $ do
         route idRoute
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
+            news <- recentFirst =<< loadAll "news/*"
             let indexCtx =
                     listField "posts" postCtx (return posts) `mappend`
+                    listField "news" postCtx (return news) `mappend`
                     defaultContext
 
             getResourceBody

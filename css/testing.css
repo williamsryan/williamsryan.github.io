@@ -690,7 +690,7 @@ not screen and (max-width: 766px) {
     }
 }
 
-article .entry-content p,
+/* article .entry-content p,
 article .entry-content blockquote,
 article .entry-content ul,
 article .entry-content ol,
@@ -704,7 +704,7 @@ article .entry-content h4,
 article .entry-content h5,
 article .entry-content h6 {
     margin-top: 15px
-}
+} */
 
 article .entry-content ul,
 article .entry-content ol,
@@ -747,7 +747,7 @@ article .entry-content img,
 article .entry-content video {
     max-width: 100%;
     height: auto;
-    margin-top: 15px
+    /* margin-top: 15px; */
 }
 
 article .entry-content img.center {
