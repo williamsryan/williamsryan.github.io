@@ -73,13 +73,32 @@
 
 <p>This is a growing list of Coq-specific things I encountered while working on a modeling project.
 I figured this could help as an introductory guide to Coq for those unfamiliar.</p>
+<h2>
+Solving Simple Goals
+</h2>
+<p>Typically, when writing Coq proofs, your goal is to transform or simplify the goal until it can be solved using one of the following tactics.</p>
 <h2 id="reflexivity">reflexivity</h2>
-<p><code>reflexivity</code> is a basic tactic to be used when proving something equals itself.</p>
+<p><code>reflexivity</code> is a basic tactic to be used when proving something equals itself:</p>
 <pre><code class="language-coq">Lemma use_reflexivity:
     forall x: Set, x = x.
 Proof.
     intro.
     reflexivity.
+Qed.
+</code></pre>
+<h2 id="assumption">assumption</h2>
+<p>When the goal is already in the context, you can use <code>assumption</code> to prove it:</p>
+<pre><code class="language-coq">Lemma p_implies_p : forall P : Prop,
+    P -> P.
+Proof.
+    intros P P_holds.
+</code></pre>
+After introducing this hypothesis, <code>P_holds</code> (stating that <code>P</code> is true) into the context, we can use <code>assumption</code> to complete the proof:
+<pre><code class="language-coq">Lemma p_implies_p : forall P : Prop,
+    P -> P.
+Proof.
+    intros P P_holds.
+    assumption.
 Qed.
 </code></pre>
 
