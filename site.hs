@@ -30,6 +30,11 @@ main = hakyllWith config $ do
         route   idRoute
         compile copyFileCompiler
 
+    -- JS files.
+    match "js/*" $ do
+        route   idRoute
+        compile copyFileCompiler
+
     -- Compress CSS into one file.
     match "css/*" $ compile compressCssCompiler
     create ["style.css"] $ do

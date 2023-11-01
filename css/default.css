@@ -12,7 +12,7 @@ img {
 
 p {
   line-height: 1.25;
-  max-width: 33em;
+  /* max-width: 33em; */
 }
 
 ul {
