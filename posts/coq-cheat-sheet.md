@@ -17,7 +17,7 @@ reflexivity
     (* Simple theorem, x always equals x *)
     forall x: Set, x = x.
 Proof.
-    (* Iintroduce variables/hypotheses *)
+    (* Introduce variables/hypotheses *)
     intro.
     reflexivity.
 Qed.
