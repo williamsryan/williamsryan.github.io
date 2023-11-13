@@ -178,7 +178,8 @@ main = hakyllWith config $ do
     -- Render CV as HTML.
     match "cv/cv.tex" $ do
         route   $ constRoute "cv/index.html"
-        compile $ pandocCompiler
+        compile $ getResourceString
+            >>= withItemBody (unixFilter "pandoc" ["-f", "latex", "-t", "html"])
             >>= loadAndApplyTemplate "templates/content.html" postCtx
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls

@@ -8,3 +8,7 @@ _cache/
 .DS_Store
 
 [bB]uild
+*.log
+*.fdb_latexmk
+*.fls
+*.aux
