@@ -7,9 +7,10 @@ import           Prelude
 -- import           System.Exit
 import           System.FilePath (replaceExtension, takeDirectory)
 import qualified Data.Text as T
+-- import qualified Data.Set as S
 import qualified System.Process  as Process
 import Text.Pandoc (
-      WriterOptions
+      WriterOptions (writerExtensions)
     , writerTemplate
     , writerTopLevelDivision
     , writerTableOfContents
@@ -19,9 +20,17 @@ import Text.Pandoc (
     , compileTemplate
     , runPure
     , runWithDefaultPartials
+    , readerExtensions
+    , writerExtensions
+    , pandocExtensions
     )
 
+import Text.Pandoc.Options
+
+import Data.Default (def)
+
 import Hakyll
+import Hakyll.Web.Pandoc
 
 -----------------
 -- Configuration.
@@ -152,7 +161,7 @@ main = hakyllWith config $ do
                 >>= relativizeUrls
 
     -- Compile templates.
-    match "templates/*" $ compile $ templateCompiler
+    match "templates/*" $ compile templateCompiler
 
     -- Render the 404 page, we don't relativize URL's here.
     match "404.html" $ do
@@ -162,13 +171,17 @@ main = hakyllWith config $ do
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
 
     -- CV as PDF.
-    -- match "cv.markdown" $ version "pdf" $ do
-    --     route   $ setExtension ".pdf"
-    --     compile $ do getResourceBody
-    --         >>= readPandoc
-    --         >>= writeXeTex
-    --         >>= loadAndApplyTemplate "templates/cv.tex" defaultContext
-    --         >>= xelatex
+    match "cv/cv.tex" $ version "pdf" $ do
+        route   $ constRoute "cv.pdf"
+        compile $ getResourceString >>= xelatex
+
+    -- Render CV as HTML.
+    match "cv/cv.tex" $ do
+        route   $ constRoute "cv/index.html"
+        compile $ pandocCompiler
+            >>= loadAndApplyTemplate "templates/content.html" postCtx
+            >>= loadAndApplyTemplate "templates/default.html" postCtx
+            >>= relativizeUrls
 
 --------------------------------------------------------------------------------
 
@@ -192,3 +205,24 @@ withoutTOC :: WriterOptions
 withoutTOC = defaultHakyllWriterOptions{
     writerHTMLMathMethod = MathJax ""
 }
+
+---------------
+-- LaTeX stuff.
+---------------
+xelatex :: Item String -> Compiler (Item TmpFile)
+xelatex item = do
+    TmpFile texPath <- newTmpFile "pdflatex.tex"
+    let pdfPath = replaceExtension texPath "pdf"
+    unsafeCompiler $ do
+        writeFile texPath $ itemBody item
+        _ <- Process.system $ unwords [
+            "export TEXINPUTS=.:./cv/:",
+            "&&",
+            "xelatex",
+            "-interaction=nonstopmode",
+            "-output-directory=" ++ takeDirectory texPath,
+            texPath
+            ]
+        return ()
+    makeItem $ TmpFile pdfPath
+
