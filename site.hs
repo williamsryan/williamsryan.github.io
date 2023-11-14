@@ -185,8 +185,8 @@ main = hakyllWith config $ do
     --     route   $ constRoute "cv.pdf"
     --     compile $ getResourceString >>= xelatex
 
-    -- Render CV as HTML.
-    match "cv/cv.tex" $ do
+    -- Render LaTeX docs as HTML.
+    match "*/*.tex" $ do
         route   $ constRoute "cv/index.html"
         compile $ getResourceString
             >>= withItemBody (unixFilter "pandoc" ["-f", "latex", "-t", "html5","--mathjax"])

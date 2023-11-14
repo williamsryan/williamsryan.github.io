@@ -1,0 +1,114 @@
+---
+title: Rendering LaTeX in Hakyll
+date: 2023-11-14
+toc: true
+---
+
+\usepackage{listings}
+% \usepackage{minted}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\title{Rendering LaTeX in Hakyll}
+
+\section{What is Hakyll?}
+\href{https://jaspervdj.be/hakyll/}{Hakyll} is a Haskell library for generating static sites, mostly aimed at small-to-medium sites and personal blogs.
+It is written in a very configurable way and uses an \href{https://xmonad.org/}{xmonad}-like DSL for configuration. \\
+\\
+When I first started putting together this site, I wanted more flexibility for rendering the Markdown posts in HTML.
+For my particular needs, LaTeX offered everything I wanted to show here.
+Now, this site as you see it uses Markdown and Hakyll-specific formatting \textit{within} LaTeX.
+
+\section{Rendering Markdown in Hakyll}
+As Hakyll is integrated with \href{https://pandoc.org/}{pandoc}, it is capable of rendering Markdown with proper formatting in HTML.
+For example, to produce header text \footnote{which is used as our table of contents when setting \texttt{toc} to \texttt{true}} we can simply use:
+\begin{verbatim}
+# Header Text
+## Subheader Text
+\end{verbatim}
+Similarly, we can produce code blocks with syntax highlighting:
+\begin{verbatim}
+```haskell
+main :: IO ()
+main = putStrLn "Hello, world!"
+```
+\end{verbatim}
+which produces:
+\begin{lstlisting}[language=haskell]
+main :: IO ()
+main = putStrLn "Hello, world!"
+\end{lstlisting}
+
+\subsection{Compiling to HTML}
+Using Markdown files on a Hakyll site is as simple as placing them in a directory, say \texttt{posts}, and then compiling them to HTML like so:
+\begin{lstlisting}[language=haskell]
+match "posts/*.md" $ do
+    route $ setExtension "html"
+    compile $ pandocCompiler
+        >>= relativizeUrls
+\end{lstlisting}
+
+\section{Rendering LaTeX in Hakyll}
+While TeX files are already supported by Hakyll as it uses pandoc, the compilation process is a bit different than the case of Markdown.
+We can use support files with our LaTeX, like class or style files\footnote{we can even use a \texttt{bib} file}, however, in its simplest form we can start by using a TeX file like so:
+\begin{verbatim}
+\title{Some Title}
+\section{Some Section}
+Some text.
+\end{verbatim}
+
+\subsection{Special Characters}
+As we are using LaTeX, that provides us with a simple way of defining mathematical expressions, among other things.
+Next, we show some examples of how to use native LaTeX commands in Hakyll:
+\begin{verbatim}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\end{verbatim}
+which can be used like so:
+\begin{verbatim}
+\begin{definition}[right-angled triangles]
+    A \emph{right-angled triangle} is a triangle whose sides of length~\(a\), \(b\) and~\(c\), in some permutation of order, satisfies \(a^2+b^2=c^2\).
+\end{definition}
+\end{verbatim}
+which produces:
+\begin{quote}
+\begin{definition}[right-angled triangles]
+    A \emph{right-angled triangle} is a triangle whose sides of length~\(a\), \(b\) and~\(c\), in some permutation of order, satisfies \(a^2+b^2=c^2\).
+\end{definition}
+\end{quote}
+
+Similarly:
+\begin{verbatim}
+\begin{proof}
+    This lemma follows from \cref{def:tri} since \(3^2+4^2=9+16=25=5^2\).
+\end{proof}
+\end{verbatim}
+produces:
+\begin{quote}
+\begin{proof}
+    This lemma follows from \cref{def:tri} since \(3^2+4^2=9+16=25=5^2\).
+\end{proof}
+\end{quote}
+
+\subsection{Compiling to HTML}
+This is where we need to handle things a bit differently.
+Using Hakyll's pandoc integration, we can compile our TeX files to HTML like so:
+\begin{lstlisting}[language=haskell]
+match "*/*.tex" $ do
+    route   $ constRoute "*/index.html"
+    compile $ getResourceString
+        >>= withItemBody (unixFilter "pandoc" ["-f", "latex", "-t", "html5","--mathjax"])
+        >>= relativizeUrls
+\end{lstlisting}
