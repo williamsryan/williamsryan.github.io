@@ -100,7 +100,7 @@ main = hakyllWith config $ do
                 >>= loadAndApplyTemplate "templates/default.html" ctx
                 >>= relativizeUrls
 
-    -- Render each and every post.
+    -- Render each and every post (Markdown format).
     match "posts/*" $ do
         route $ setExtension "html"
         compile $ do
@@ -119,6 +119,16 @@ main = hakyllWith config $ do
                 >>= loadAndApplyTemplate "templates/content.html" ctx
                 >>= loadAndApplyTemplate "templates/default.html" ctx
                 >>= relativizeUrls
+
+    -- Render each and every post (LaTeX format).
+    -- match "posts/*" $ do
+    --     route   $ setExtension "html"
+    --     compile $ getResourceString
+    --         >>= withItemBody (unixFilter "pandoc" ["-f", "latex", "-t", "html5", "--toc","--mathjax"])
+    --         >>= loadAndApplyTemplate "templates/post.html" postCtx
+    --         >>= loadAndApplyTemplate "templates/content.html" postCtx
+    --         >>= loadAndApplyTemplate "templates/default.html" postCtx
+    --         >>= relativizeUrls
 
     -- Post list.
     create ["posts.html"] $ do
@@ -171,15 +181,15 @@ main = hakyllWith config $ do
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
 
     -- CV as PDF.
-    match "cv/cv.tex" $ version "pdf" $ do
-        route   $ constRoute "cv.pdf"
-        compile $ getResourceString >>= xelatex
+    -- match "cv/cv.tex" $ version "pdf" $ do
+    --     route   $ constRoute "cv.pdf"
+    --     compile $ getResourceString >>= xelatex
 
     -- Render CV as HTML.
     match "cv/cv.tex" $ do
         route   $ constRoute "cv/index.html"
         compile $ getResourceString
-            >>= withItemBody (unixFilter "pandoc" ["-f", "latex", "-t", "html"])
+            >>= withItemBody (unixFilter "pandoc" ["-f", "latex", "-t", "html5","--mathjax"])
             >>= loadAndApplyTemplate "templates/content.html" postCtx
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls
