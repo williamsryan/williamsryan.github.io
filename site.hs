@@ -185,8 +185,17 @@ main = hakyllWith config $ do
     --     route   $ constRoute "cv.pdf"
     --     compile $ getResourceString >>= xelatex
 
+    -- Separate rule for CV.
+    match "cv/cv.tex" $ do
+        route   $ constRoute "cv/index.html"
+        compile $ getResourceString
+            >>= withItemBody (unixFilter "pandoc" ["-f", "latex", "-t", "html5"])
+            >>= loadAndApplyTemplate "templates/content.html" postCtx
+            >>= loadAndApplyTemplate "templates/default.html" postCtx
+            >>= relativizeUrls
+
     -- Render LaTeX docs as HTML.
-    match "*/*.tex" $ do
+    match ("*/*.tex" .&&. complement "cv/*")$ do
         route   $ constRoute "cv/index.html"
         compile $ getResourceString
             >>= withItemBody (unixFilter "pandoc" ["-f", "latex", "-t", "html5","--mathjax"])
