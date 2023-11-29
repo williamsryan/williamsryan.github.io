@@ -190,7 +190,7 @@ main = hakyllWith config $ do
         route   $ constRoute "cv/index.html"
         compile $ getResourceString
             >>= withItemBody (unixFilter "pandoc" ["-f", "latex", "-t", "html5"])
-            >>= loadAndApplyTemplate "templates/content.html" postCtx
+            >>= loadAndApplyTemplate "templates/cv.html" postCtx
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls
 
