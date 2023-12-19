@@ -1,0 +1,127 @@
+---
+title: "Coq Cheatsheet: Tools and Tactics for Goal Solving"
+date: 2023-12-19
+toc: true
+---
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{listings}
+
+\title{Coq Cheatsheet: Tools and Tactics for Goal Solving}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+This cheatsheet provides a quick reference to various tools and tactics in Coq, accompanied by examples to illustrate their usage in solving goals.
+
+\section{Basic Tactics}
+\subsection{\texttt{intros}}
+\textbf{Usage:} Introduce hypotheses and variables. \\
+\textbf{Example:}
+\begin{lstlisting}[language=Coq]
+Theorem example : forall a b : nat, a = b -> b = a.
+Proof. intros a b H. ...
+\end{lstlisting}
+
+\subsection{\texttt{apply}}
+\textbf{Usage:} Apply a theorem or hypothesis. \\
+\textbf{Example:}
+\begin{lstlisting}[language=Coq]
+apply H.
+\end{lstlisting}
+
+\subsection{\texttt{rewrite}}
+\textbf{Usage:} Rewrite a goal using a hypothesis or theorem. \\
+\textbf{Example:}
+\begin{lstlisting}[language=Coq]
+rewrite -> H.
+\end{lstlisting}
+
+\subsection{\texttt{reflexivity}}
+\textbf{Usage:} Prove a goal of the form \texttt{a = a}. \\
+\textbf{Example:}
+\begin{lstlisting}[language=Coq]
+    Lemma use_reflexivity:
+    (* Simple theorem, x always equals x *)
+    forall x: Set, x = x.
+Proof.
+    (* Introduce variables/hypotheses *)
+    intro.
+    reflexivity.
+Qed.
+\end{lstlisting}
+
+\subsection{\texttt{assumption}}
+\textbf{Usage:} When the goal is already in the context, you can use \texttt{assumption} to prove it.\\
+\textbf{Example:}
+\begin{lstlisting}[language=Coq]
+    Lemma p_implies_p : forall P : Prop,
+    (* P implies P is always true *)
+    P -> P.
+Proof.
+    (* We can specify names for introduced variables/hypotheses *)
+    intros P P_holds.
+\end{lstlisting}
+After introducing this hypothesis, \texttt{P_holds} (stating that \texttt{P} is true) into the context, we can use \texttt{assumption} to complete the proof:
+\begin{lstlisting}[language=Coq]
+    Lemma p_implies_p : forall P : Prop,
+    P -> P.
+Proof.
+    intros P P_holds.
+    assumption.
+Qed.
+\end{lstlisting}
+
+\section{Logical Tactics}
+\subsection{\texttt{split}}
+\textbf{Usage:} Split a conjunction into two separate goals. \\
+\textbf{Example:}
+\begin{lstlisting}[language=Coq]
+split.
+\end{lstlisting}
+
+\subsection{\texttt{left / right}}
+\textbf{Usage:} Prove a disjunction by proving one of its parts. \\
+\textbf{Example:}
+\begin{lstlisting}[language=Coq]
+left.
+\end{lstlisting}
+
+\subsection{\texttt{exists}}
+\textbf{Usage:} Provide a witness for an existential quantifier. \\
+\textbf{Example:}
+\begin{lstlisting}[language=Coq]
+exists x.
+\end{lstlisting}
+
+\section{Advanced Tactics}
+\subsection{\texttt{induction}}
+\textbf{Usage:} Apply induction on a variable. \\
+\textbf{Example:}
+\begin{lstlisting}[language=Coq]
+induction n.
+\end{lstlisting}
+
+\subsection{\texttt{inversion}}
+\textbf{Usage:} Derive information from equality of inductive types. \\
+\textbf{Example:}
+\begin{lstlisting}[language=Coq]
+inversion H.
+\end{lstlisting}
+
+\subsection{\texttt{destruct}}
+\textbf{Usage:} Case analysis on a variable or hypothesis. \\
+\textbf{Example:}
+\begin{lstlisting}[language=Coq]
+destruct n.
+\end{lstlisting}
+
+\section{Conclusion}
+This cheatsheet offers a glimpse into the powerful tactics at your disposal in Coq. Experimenting with these tactics will deepen your understanding and proficiency in proof construction.
+
+\end{document}
