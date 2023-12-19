@@ -92,7 +92,7 @@ a:hover {
 
 .sourceCode {
   font-family: Menlo, Consolas, monospace;
-  font-size: 0.9em;
+  /* font-size: 0.9em; */
 }
 
 code {

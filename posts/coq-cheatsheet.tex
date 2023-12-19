@@ -3,49 +3,51 @@ title: "Coq Cheatsheet: Tools and Tactics for Goal Solving"
 date: 2023-12-19
 toc: true
 ---
-
 \documentclass{article}
+
 \usepackage{amsmath}
 \usepackage{listings}
-
-\title{Coq Cheatsheet: Tools and Tactics for Goal Solving}
-\author{}
-\date{}
+\usepackage{minted}
 
 \begin{document}
 
-\maketitle
+\title{Coq Cheatsheet: Tools and Tactics for Goal Solving}
 
 \section{Introduction}
 This cheatsheet provides a quick reference to various tools and tactics in Coq, accompanied by examples to illustrate their usage in solving goals.
 
 \section{Basic Tactics}
 \subsection{\texttt{intros}}
-\textbf{Usage:} Introduce hypotheses and variables. \\
-\textbf{Example:}
-\begin{lstlisting}[language=Coq]
-Theorem example : forall a b : nat, a = b -> b = a.
-Proof. intros a b H. ...
+\textbf{Usage:} Introduce hypotheses and variables into the context. \\
+\textbf{Example:} Proving symmetry in equality.
+\begin{lstlisting}[language=haskell]
+Theorem symmetry_eq : forall a b : nat, a = b -> b = a.
+Proof. intros a b H. apply H. Qed.
 \end{lstlisting}
+This theorem states that if \( a = b \), then \( b = a \). The \texttt{intros} tactic introduces variables \texttt{a}, \texttt{b}, and hypothesis \texttt{H} into the proof context.
 
 \subsection{\texttt{apply}}
-\textbf{Usage:} Apply a theorem or hypothesis. \\
-\textbf{Example:}
-\begin{lstlisting}[language=Coq]
-apply H.
+\textbf{Usage:} Apply a theorem, lemma, or hypothesis. \\
+\textbf{Example:} Using transitivity of equality.
+\begin{lstlisting}[language=haskell]
+Theorem trans_eq : forall a b c : nat, (a = b) -> (b = c) -> (a = c).
+Proof. intros a b c H1 H2. apply H1. apply H2. Qed.
 \end{lstlisting}
+Here, \texttt{apply} is used to use the hypotheses \txttt{H1} and \txttt{H2} in the proof.
 
 \subsection{\texttt{rewrite}}
 \textbf{Usage:} Rewrite a goal using a hypothesis or theorem. \\
-\textbf{Example:}
-\begin{lstlisting}[language=Coq]
-rewrite -> H.
+\textbf{Example:} Demonstrating rewriting.
+\begin{lstlisting}[language=haskell]
+Theorem rewrite_example : forall a b c : nat, (a = b) -> (a + c = b + c).
+Proof. intros a b c H. rewrite -> H. reflexivity. Qed.
 \end{lstlisting}
+\texttt{rewrite -> H} rewrites \texttt{a} in the goal with \texttt{b}, using hypothesis \texttt{H}.
 
 \subsection{\texttt{reflexivity}}
 \textbf{Usage:} Prove a goal of the form \texttt{a = a}. \\
 \textbf{Example:}
-\begin{lstlisting}[language=Coq]
+\begin{lstlisting}[language=haskell]
     Lemma use_reflexivity:
     (* Simple theorem, x always equals x *)
     forall x: Set, x = x.
@@ -59,7 +61,7 @@ Qed.
 \subsection{\texttt{assumption}}
 \textbf{Usage:} When the goal is already in the context, you can use \texttt{assumption} to prove it.\\
 \textbf{Example:}
-\begin{lstlisting}[language=Coq]
+\begin{lstlisting}[language=haskell]
     Lemma p_implies_p : forall P : Prop,
     (* P implies P is always true *)
     P -> P.
@@ -68,7 +70,7 @@ Proof.
     intros P P_holds.
 \end{lstlisting}
 After introducing this hypothesis, \texttt{P_holds} (stating that \texttt{P} is true) into the context, we can use \texttt{assumption} to complete the proof:
-\begin{lstlisting}[language=Coq]
+\begin{lstlisting}[language=haskell]
     Lemma p_implies_p : forall P : Prop,
     P -> P.
 Proof.
@@ -81,21 +83,21 @@ Qed.
 \subsection{\texttt{split}}
 \textbf{Usage:} Split a conjunction into two separate goals. \\
 \textbf{Example:}
-\begin{lstlisting}[language=Coq]
+\begin{lstlisting}[language=haskell]
 split.
 \end{lstlisting}
 
 \subsection{\texttt{left / right}}
 \textbf{Usage:} Prove a disjunction by proving one of its parts. \\
 \textbf{Example:}
-\begin{lstlisting}[language=Coq]
+\begin{lstlisting}[language=haskell]
 left.
 \end{lstlisting}
 
 \subsection{\texttt{exists}}
 \textbf{Usage:} Provide a witness for an existential quantifier. \\
 \textbf{Example:}
-\begin{lstlisting}[language=Coq]
+\begin{lstlisting}[language=haskell]
 exists x.
 \end{lstlisting}
 
@@ -103,21 +105,21 @@ exists x.
 \subsection{\texttt{induction}}
 \textbf{Usage:} Apply induction on a variable. \\
 \textbf{Example:}
-\begin{lstlisting}[language=Coq]
+\begin{lstlisting}[language=haskell]
 induction n.
 \end{lstlisting}
 
 \subsection{\texttt{inversion}}
 \textbf{Usage:} Derive information from equality of inductive types. \\
 \textbf{Example:}
-\begin{lstlisting}[language=Coq]
+\begin{lstlisting}[language=haskell]
 inversion H.
 \end{lstlisting}
 
 \subsection{\texttt{destruct}}
 \textbf{Usage:} Case analysis on a variable or hypothesis. \\
 \textbf{Example:}
-\begin{lstlisting}[language=Coq]
+\begin{lstlisting}[language=haskell]
 destruct n.
 \end{lstlisting}
 
