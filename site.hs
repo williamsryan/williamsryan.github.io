@@ -185,6 +185,11 @@ main = hakyllWith config $ do
     --     route   $ constRoute "cv.pdf"
     --     compile $ getResourceString >>= xelatex
 
+    -- Serve book assets from the "books/beautiful-coq" directory.
+    match "books/beautiful-coq/**" $ do
+        route idRoute
+        compile copyFileCompiler
+
     -- Separate rule for CV.
     match "cv/cv.tex" $ do
         route   $ constRoute "cv/index.html"
@@ -196,7 +201,7 @@ main = hakyllWith config $ do
 
     -- Render LaTeX docs as HTML.
     match ("*/*.tex" .&&. complement "cv/*")$ do
-        route   $ constRoute "cv/index.html"
+        -- route   $ constRoute "cv/index.html"
         compile $ getResourceString
             >>= withItemBody (unixFilter "pandoc" ["-f", "latex", "-t", "html5","--mathjax"])
             >>= loadAndApplyTemplate "templates/content.html" postCtx
