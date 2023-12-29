@@ -6,8 +6,8 @@ layout: page
 Current projects
 ----------------
 
-* [Program Analysis for WebAssembly Binaries](#) (Northeastern University)
-* [Synthesizing Microarchitectural Leakage Contracts from Counterexamples](#) (IMDEA Software Institute)
+* [Program Analysis for WebAssembly Binaries](/projects/wasm) (Northeastern University)
+* [Synthesizing Microarchitectural Leakage Contracts from Counterexamples](/projects/malcos) (IMDEA Software Institute)
 
 Other projects
 -------------
