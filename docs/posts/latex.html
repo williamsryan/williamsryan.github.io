@@ -136,13 +136,27 @@ Next, we show some examples of how to use native LaTeX commands in Hakyll:</p>
 </div>
 </blockquote>
 <p>Similarly:</p>
-<pre><code>\begin{proof}
-    This lemma follows from \cref{def:tri} since \(3^2+4^2=9+16=25=5^2\).
+<pre><code>\begin{definition}[Prime numbers]
+    A \emph{prime number} is a natural number greater than 1 that has no positive divisors other than 1 and itself.
+\end{definition}
+
+\begin{lemma}[Infinitude of primes]
+    There are infinitely many prime numbers.
+\end{lemma}
+
+\begin{proof}
+    Suppose there were only finitely many prime numbers. List them as \(p_1, p_2, \ldots, p_n\). Consider the number \(P = p_1p_2\ldots p_n + 1\). This number \(P\) is not divisible by any of our listed primes, since it leaves a remainder of 1 when divided by any of them. Therefore, \(P\) is either prime or has a prime divisor which is not on our list. This contradicts our assumption that \(p_1, p_2, \ldots, p_n\) were all of the primes. Therefore, there must be infinitely many primes.
 \end{proof}</code></pre>
 <p>produces:</p>
 <blockquote>
+<div class="definition">
+<p><strong>Definition 2</strong> (Prime numbers). A <em>prime number</em> is a natural number greater than 1 that has no positive divisors other than 1 and itself.</p>
+</div>
+<div class="lemma">
+<p><strong>Lemma 3</strong> (Infinitude of primes). <em>There are infinitely many prime numbers.</em></p>
+</div>
 <div class="proof">
-<p><em>Proof.</em> This lemma follows from since <span class="math inline">\(3^2+4^2=9+16=25=5^2\)</span>. ◻</p>
+<p><em>Proof.</em> Suppose there were only finitely many prime numbers. List them as <span class="math inline">\(p_1, p_2, \ldots, p_n\)</span>. Consider the number <span class="math inline">\(P = p_1p_2\ldots p_n + 1\)</span>. This number <span class="math inline">\(P\)</span> is not divisible by any of our listed primes, since it leaves a remainder of 1 when divided by any of them. Therefore, <span class="math inline">\(P\)</span> is either prime or has a prime divisor which is not on our list. This contradicts our assumption that <span class="math inline">\(p_1, p_2, \ldots, p_n\)</span> were all of the primes. Therefore, there must be infinitely many primes. ◻</p>
 </div>
 </blockquote>
 <h2 data-number="3.2" id="compiling-to-html-1"><span class="header-section-number">3.2</span> Compiling to HTML</h2>

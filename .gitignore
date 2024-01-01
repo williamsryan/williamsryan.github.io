@@ -12,3 +12,5 @@ _cache/
 *.fdb_latexmk
 *.fls
 *.aux
+*.out
+
