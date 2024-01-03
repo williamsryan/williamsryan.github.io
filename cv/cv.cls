@@ -1,5 +1,5 @@
 % Class Identifier and Version
-\ProvidesClass{resume-style}[2023/11/13 Resume class]
+\ProvidesClass{kyvernitis-resume}[2023/06/06 Kyvernitis class]
 \NeedsTeXFormat{LaTeX2e}
 
 % Set font size and paper type
@@ -104,24 +104,33 @@
 \newcommand{\entry}[2]{#1 & #2 \tabularnewline}
 
 % Define the resume header
-\newcommand{\resumeheader}[6]{
+\newcommand{\resumeheader}[4]{
     % \phantomsection
     % \addcontentsline{toc}{chapter}{\@name}
     \begin{tabularx}{\textwidth}{Xr}{
         \begin{tabular}[c]{l}
-            \fontsize{35}{45}\selectfont{\color{navyblue}{\textbf{\@name}}}
+            \fontsize{30}{35}\selectfont{\color{navyblue}{\textbf{\@name}}}
             \ifx\empty\@title\empty\else
                 \\ \textit{\small\@title}
             \fi
        \end{tabular}
     } & {
         \begin{tabular}[c]{l@{\hspace{1em}}l}
-            \entry{\small#4}{\small#1}
-            \entry{\small#5}{\small#2}
-            \entry{\small#6}{\small#3}
+            \entry{\small#3}{\small#1}
+            \entry{\small#4}{\small#2}
         \end{tabular}
     }
     \end{tabularx}
+}
+
+% Environment for publications.
+\newenvironment{pub}[5]{
+    % \phantomsection
+    {#1}
+    (#2).
+    \href{#4}{#3}
+    {#5}.
+    \smallskip
 }
 
 % Renew section command for resume section
@@ -129,7 +138,7 @@
     \phantomsection
     \addcontentsline{toc}{section}{#1}
     \medskip
-    {\color{navyblue}{\textbf{\textit{#1}}}}
+    {\color{navyblue}{\textbf{#1}}}
     \medskip
     {\color{navyblue}\hrule}
     \begin{list}{}{
@@ -143,37 +152,37 @@
 % Renew subsection command for resume subsections
 % All arguments are compulsory
 % #1: Name, #2: Description, #3: Time Period, #4: Location
-\renewenvironment{subsection}[4]{
-    \phantomsection
-    \addcontentsline{toc}{subsection}{#1}
-    \textbf{#1} \hfill \textit{#3} \newline
-    \textit{#2} \hfill \textit{#4}
-    \smallskip
-    \begin{list}{$\vbullet$}{
-        \leftmargin=2em
-    }
-    \itemsep -0.5em \vspace{-0.5em}
-}{
-    \end{list}
-    \vspace{0.5em}
-}
+% \renewenvironment{subsection}[4]{
+%     \phantomsection
+%     \addcontentsline{toc}{subsection}{#1}
+%     \textbf{#1} \hfill \textit{#3} \newline
+%     \textit{#2} \hfill \textit{#4}
+%     \smallskip
+%     \begin{list}{$\vbullet$}{
+%         \leftmargin=2em
+%     }
+%     \itemsep -0.5em \vspace{-0.5em}
+% }{
+%     \end{list}
+%     \vspace{0.5em}
+% }
 
 
 % Define command for resume subsections with no bullets
 % All arguments are compulsory
 % #1: Name, #2: Description, #3: Time Period, #4: Location
-\newenvironment{subsectionnobullet}[4]{
+\newenvironment{subsectionnobullet}[3]{
     \phantomsection
     \addcontentsline{toc}{subsection}{#1}
     \textbf{#1} \hfill \textit{#3} \newline
-    \textit{#2} \hfill \textit{#4}
+    \textit{#2} 
     \smallskip
-    \begin{list}{}{
-        \leftmargin=0em \itemindent=0em \labelwidth=0em \labelsep=0em
-    }
-    \itemsep -0.7em \vspace{-0.7em}
-}{
-    \end{list}
+%     \begin{list}{}{
+%         \leftmargin=0em \itemindent=0em \labelwidth=0em \labelsep=0em
+%     }
+%     \itemsep -0.7em \vspace{-0.7em}
+% }{
+%     \end{list}
 }
 
 % Define new sectiontable command, which makes a section with a table

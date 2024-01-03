@@ -181,9 +181,9 @@ main = hakyllWith config $ do
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
 
     -- CV as PDF.
-    -- match "cv/cv.tex" $ version "pdf" $ do
-    --     route   $ constRoute "cv.pdf"
-    --     compile $ getResourceString >>= xelatex
+    match "cv/cv-pdf.tex" $ version "pdf" $ do
+        route   $ constRoute "cv.pdf"
+        compile $ getResourceString >>= xelatex
 
     -- Serve book assets from the "books/beautiful-coq" directory.
     match "books/beautiful-coq/**" $ do

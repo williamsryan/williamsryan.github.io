@@ -126,3 +126,8 @@ code {
   border-top: 1px solid #efefef;
   margin-top: 20px;
 }
+
+.cv-pdf {
+  font-size: 1.0rem;
+  font-style: italic;
+}
