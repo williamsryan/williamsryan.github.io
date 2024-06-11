@@ -6,6 +6,10 @@ layout: page
 Conference Papers
 -----------------
 
+Zachary Ratliff, Wittmann Goh, Abe Wieland, James Mickens, **Ryan Williams**.
+[Holepunch: Fast, Secure File Deletion with Crash Consistency](https://eprint.iacr.org/2023/1927)
+IEEE S&P 2024.
+
 **Ryan Williams**, Anthony Gavazzi, Engin Kirda (2023).
 [Solder: Retrofitting Legacy Code with Cross-Language Patches.](https://ieeexplore.ieee.org/abstract/document/10123487)
 SANER 2023.
