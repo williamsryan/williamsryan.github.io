@@ -1,0 +1,128 @@
+---
+title: "Datalog for Program Analysis"
+date: 2024-06-13
+toc: true
+---
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{minted}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\begin{document}
+
+\title{Datalog for Program Analysis}
+
+\section{Introduction}
+Welcome to the first installment of our tutorial series on leveraging Datalog for program analysis. In this series, we will explore the fundamentals of Datalog, its syntax, and how it can be applied to solve various program analysis problems. Datalog is a powerful declarative logic programming language that is particularly well-suited for querying relational data, making it an excellent tool for program analysis.
+
+\subsection{What is Datalog?}
+Datalog is a declarative logic programming language that is a subset of Prolog. It is used primarily for deductive databases and declarative queries. Unlike imperative languages, Datalog focuses on what the program should accomplish rather than how to achieve it.
+
+\subsubsection{Syntax}
+The syntax of Datalog is based on facts, rules, and queries.
+
+\textbf{Facts:} Represent basic assertions about the world. For example:
+\begin{minted}{prolog}
+parent("enzo", "mia").
+\end{minted}
+
+\textbf{Rules:} Define relationships between facts using logical implications. For example:
+\begin{minted}{prolog}
+ancestor(X, Y) :- parent(X, Y).
+ancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).
+\end{minted}
+
+\textbf{Queries:} Questions posed to the Datalog system to infer information based on the facts and rules. For example:
+\begin{minted}{prolog}
+?- ancestor("enzo", "mia").
+\end{minted}
+
+\subsubsection{Setting Up Datalog}
+To get started with Datalog, you'll need an environment that supports Datalog queries. One popular choice is \href{https://souffle-lang.github.io/}{Soufflé}, a Datalog engine that is efficient and easy to use.
+
+\textbf{Installation:}
+\\
+\\
+For Linux:
+\begin{minted}{bash}
+sudo apt install souffle
+\end{minted}
+
+For macOS:
+\begin{minted}{bash}
+brew install souffle-lang/souffle/souffle
+\end{minted}
+
+\section{Your First Datalog Program}
+Let's write a simple Datalog program to understand its structure. Consider a program that defines family relationships.
+
+\subsection{Facts}
+\begin{minted}{prolog}
+parent("enzo", "mia").
+parent("mia", "piper").
+parent("piper", "onyx").
+\end{minted}
+
+\subsection{Rules}
+\begin{minted}{prolog}
+ancestor(X, Y) :- parent(X, Y).
+ancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).
+\end{minted}
+
+\subsection{Query}
+\begin{minted}{prolog}
+.output ancestor
+\end{minted}
+
+Now, save the above content into a file called \texttt{family.dl} and run it using Soufflé:
+\begin{minted}{bash}
+souffle -D . family.dl
+\end{minted}
+
+Wait, that didn't seem to work correctly, what's missing?
+\begin{definition}[decls]
+To actually use these rules, we need to declare the respective types using the \texttt{.decl} directive.
+\end{definition}
+
+\begin{minted}{prolog}
+.decl parent (n: symbol, m: symbol)
+...
+.decl ancestor (n: symbol, m: symbol)
+\end{minted}
+
+So now the full \texttt{family.dl} should look like:
+\begin{minted}{prolog}
+.decl parent (n: symbol, m: symbol)
+parent("enzo", "mia").
+parent("mia", "piper").
+parent("piper", "onyx").
+
+.decl ancestor (n: symbol, m: symbol)
+ancestor(X, Y) :- parent(X, Y).
+ancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).
+
+.output ancestor
+\end{minted}
+
+Which will output a CSV file, \texttt{ancestor.csv}, showing all the relationships in the input program (the facts):
+\begin{minted}{}
+enzo	mia
+enzo	piper
+enzo	onyx
+mia	piper
+mia	onyx
+piper	onyx
+\end{minted}
+
+\section{Applying Datalog to Program Analysis}
+Datalog can be a powerful tool for program analysis due to its ability to express complex relationships in a concise manner. Let's consider a simple example of points-to analysis, which is used to determine what pointers can point to at various points in a program.
+
+TODO.
+\\
+\\
+
+\end{document}

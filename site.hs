@@ -203,7 +203,7 @@ main = hakyllWith config $ do
     match ("*/*.tex" .&&. complement "cv/*")$ do
         -- route   $ constRoute "cv/index.html"
         compile $ getResourceString
-            >>= withItemBody (unixFilter "pandoc" ["-f", "latex", "-t", "html5","--mathjax"])
+            >>= withItemBody (unixFilter "pandoc" ["-f", "latex", "-t", "html5","--mathjax", "-shell-escape"])
             >>= loadAndApplyTemplate "templates/content.html" postCtx
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls
