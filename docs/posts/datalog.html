@@ -114,7 +114,7 @@ For Linux:</p>
 <h2 data-number="2.1" id="facts"><span class="header-section-number">2.1</span> Facts</h2>
 <div class="sourceCode" id="cb6"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>parent(<span class="ot">&quot;</span><span class="er">enzo</span><span class="ot">&quot;</span><span class="kw">,</span> <span class="ot">&quot;</span><span class="er">mia</span><span class="ot">&quot;</span>)<span class="kw">.</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>parent(<span class="ot">&quot;</span><span class="er">mia</span><span class="ot">&quot;</span><span class="kw">,</span> <span class="ot">&quot;</span><span class="er">piper</span><span class="ot">&quot;</span>)<span class="kw">.</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>parent(<span class="ot">&quot;</span><span class="er">piper</span><span class="ot">&quot;</span><span class="kw">,</span> <span class="ot">&quot;</span><span class="er">onyx</span><span class="ot">&quot;</span>)<span class="kw">.</span></span></code></pre></div>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>parent(<span class="ot">&quot;</span><span class="er">piper</span><span class="ot">&quot;</span><span class="kw">,</span> <span class="ot">&quot;</span><span class="er">owen</span><span class="ot">&quot;</span>)<span class="kw">.</span></span></code></pre></div>
 <h2 data-number="2.2" id="rules"><span class="header-section-number">2.2</span> Rules</h2>
 <div class="sourceCode" id="cb7"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ancestor(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ancestor(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">,</span> ancestor(<span class="dt">Z</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span></code></pre></div>
@@ -133,7 +133,7 @@ For Linux:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="al">.</span>decl parent (n<span class="fu">:</span> symbol<span class="kw">,</span> m<span class="fu">:</span> symbol)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>parent(<span class="ot">&quot;</span><span class="er">enzo</span><span class="ot">&quot;</span><span class="kw">,</span> <span class="ot">&quot;</span><span class="er">mia</span><span class="ot">&quot;</span>)<span class="kw">.</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>parent(<span class="ot">&quot;</span><span class="er">mia</span><span class="ot">&quot;</span><span class="kw">,</span> <span class="ot">&quot;</span><span class="er">piper</span><span class="ot">&quot;</span>)<span class="kw">.</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>parent(<span class="ot">&quot;</span><span class="er">piper</span><span class="ot">&quot;</span><span class="kw">,</span> <span class="ot">&quot;</span><span class="er">onyx</span><span class="ot">&quot;</span>)<span class="kw">.</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>parent(<span class="ot">&quot;</span><span class="er">piper</span><span class="ot">&quot;</span><span class="kw">,</span> <span class="ot">&quot;</span><span class="er">owen</span><span class="ot">&quot;</span>)<span class="kw">.</span></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="al">.</span>decl ancestor (n<span class="fu">:</span> symbol<span class="kw">,</span> m<span class="fu">:</span> symbol)</span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>ancestor(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span>
@@ -143,10 +143,10 @@ For Linux:</p>
 <p>Which will output a CSV file, <code>ancestor.csv</code>, showing all the relationships in the input program (the facts):</p>
 <pre><code>enzo	mia
 enzo	piper
-enzo	onyx
+enzo	owen
 mia	piper
-mia	onyx
-piper	onyx</code></pre>
+mia	owen
+piper	owen</code></pre>
 <h1 data-number="3" id="applying-datalog-to-program-analysis"><span class="header-section-number">3</span> Applying Datalog to Program Analysis</h1>
 <p>Datalog can be a powerful tool for program analysis due to its ability to express complex relationships in a concise manner. Let’s consider a simple example of points-to analysis, which is used to determine what pointers can point to at various points in a program.</p>
 <p>TODO.<br />

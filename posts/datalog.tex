@@ -64,7 +64,7 @@ Let's write a simple Datalog program to understand its structure. Consider a pro
 \begin{minted}{prolog}
 parent("enzo", "mia").
 parent("mia", "piper").
-parent("piper", "onyx").
+parent("piper", "owen").
 \end{minted}
 
 \subsection{Rules}
@@ -99,7 +99,7 @@ So now the full \texttt{family.dl} should look like:
 .decl parent (n: symbol, m: symbol)
 parent("enzo", "mia").
 parent("mia", "piper").
-parent("piper", "onyx").
+parent("piper", "owen").
 
 .decl ancestor (n: symbol, m: symbol)
 ancestor(X, Y) :- parent(X, Y).
@@ -112,10 +112,10 @@ Which will output a CSV file, \texttt{ancestor.csv}, showing all the relationshi
 \begin{minted}{}
 enzo	mia
 enzo	piper
-enzo	onyx
+enzo	owen
 mia	piper
-mia	onyx
-piper	onyx
+mia	owen
+piper	owen
 \end{minted}
 
 \section{Applying Datalog to Program Analysis}
