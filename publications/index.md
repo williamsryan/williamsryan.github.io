@@ -6,6 +6,10 @@ layout: page
 Conference Papers
 -----------------
 
+**Ryan Williams**, Anthony Gavazzi, Engin Kirda (2024).
+[Enhancing Network Security through Vulnerability Monitoring.](#)
+NSS 2024 (_to appear_).
+
 Zachary Ratliff, Wittmann Goh, Abe Wieland, James Mickens, **Ryan Williams**.
 [Holepunch: Fast, Secure File Deletion with Crash Consistency.](https://eprint.iacr.org/2023/1927)
 IEEE S&P 2024.
