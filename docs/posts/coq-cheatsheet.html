@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content>
+    <meta name="author" content>
+    <link rel="icon" href="favicon.ico">
+
+    <title>Ryan Williams | Coq Cheatsheet: Tools and Tactics for Goal Solving</title>
+
+    <!-- Adobe Fonts --->
+    <link rel="stylesheet" href="https://use.typekit.net/teo1mav.css">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="../style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar navbar-expand-md navbar-light navbar-fixed-top">
+    <div class="container-fluid">
+
+        <a class="navbar-brand" href="../" style="color:maroon;">Ryan Williams</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav ml-auto">
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="/about.html">About</a>
+                </li> -->
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../publications">Publications</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../projects">Projects</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../teaching">Teaching</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../talks">Talks</a>
+                </li>
+
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="/posts.html">Posts</a>
+                </li> -->
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../cv">CV</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<hr class="featurette-divider">
+        <article class="page">
+            <div class="entry-content">
+    <h1 class="note-title">Coq Cheatsheet: Tools and Tactics for Goal Solving</h1>
+<div class="soft">
+  <span class="date">Date: 2023-12-19</span>
+</div>
+
+<h2>Table of Contents</h2><ul>
+<li><a href="#introduction" id="toc-introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#basic-tactics" id="toc-basic-tactics"><span class="toc-section-number">2</span> Basic Tactics</a>
+<ul>
+<li><a href="#intros" id="toc-intros"><span class="toc-section-number">2.1</span> <code>intros</code></a></li>
+<li><a href="#apply" id="toc-apply"><span class="toc-section-number">2.2</span> <code>apply</code></a></li>
+<li><a href="#rewrite" id="toc-rewrite"><span class="toc-section-number">2.3</span> <code>rewrite</code></a></li>
+<li><a href="#reflexivity" id="toc-reflexivity"><span class="toc-section-number">2.4</span> <code>reflexivity</code></a></li>
+<li><a href="#assumption" id="toc-assumption"><span class="toc-section-number">2.5</span> <code>assumption</code></a></li>
+</ul></li>
+<li><a href="#logical-tactics" id="toc-logical-tactics"><span class="toc-section-number">3</span> Logical Tactics</a>
+<ul>
+<li><a href="#split" id="toc-split"><span class="toc-section-number">3.1</span> <code>split</code></a></li>
+<li><a href="#left-right" id="toc-left-right"><span class="toc-section-number">3.2</span> <code>left / right</code></a></li>
+<li><a href="#exists" id="toc-exists"><span class="toc-section-number">3.3</span> <code>exists</code></a></li>
+</ul></li>
+<li><a href="#advanced-tactics" id="toc-advanced-tactics"><span class="toc-section-number">4</span> Advanced Tactics</a>
+<ul>
+<li><a href="#induction" id="toc-induction"><span class="toc-section-number">4.1</span> <code>induction</code></a></li>
+<li><a href="#inversion" id="toc-inversion"><span class="toc-section-number">4.2</span> <code>inversion</code></a></li>
+<li><a href="#destruct" id="toc-destruct"><span class="toc-section-number">4.3</span> <code>destruct</code></a></li>
+</ul></li>
+<li><a href="#conclusion" id="toc-conclusion"><span class="toc-section-number">5</span> Conclusion</a></li>
+</ul>
+<h1 data-number="1" id="introduction"><span class="header-section-number">1</span> Introduction</h1>
+<p>This cheatsheet provides a quick reference to various tools and tactics in Coq, accompanied by examples to illustrate their usage in solving goals.</p>
+<h1 data-number="2" id="basic-tactics"><span class="header-section-number">2</span> Basic Tactics</h1>
+<h2 data-number="2.1" id="intros"><span class="header-section-number">2.1</span> <code>intros</code></h2>
+<p><strong>Usage:</strong> Introduce hypotheses and variables into the context.<br />
+<strong>Example:</strong> Proving symmetry in equality.</p>
+<div class="sourceCode" id="cb1" data-language="haskell"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Theorem</span> symmetry_eq <span class="op">:</span> <span class="kw">forall</span> a b <span class="op">:</span> nat, a <span class="ot">=</span> b <span class="ot">-&gt;</span> b <span class="ot">=</span> a<span class="op">.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Proof</span><span class="op">.</span> intros a b <span class="dt">H</span><span class="op">.</span> apply <span class="dt">H</span><span class="op">.</span> <span class="dt">Qed</span><span class="op">.</span></span></code></pre></div>
+<p>This theorem states that if <span class="math inline">\(a = b\)</span>, then <span class="math inline">\(b = a\)</span>. The <code>intros</code> tactic introduces variables <code>a</code>, <code>b</code>, and hypothesis <code>H</code> into the proof context.</p>
+<h2 data-number="2.2" id="apply"><span class="header-section-number">2.2</span> <code>apply</code></h2>
+<p><strong>Usage:</strong> Apply a theorem, lemma, or hypothesis.<br />
+<strong>Example:</strong> Using transitivity of equality.</p>
+<div class="sourceCode" id="cb2" data-language="haskell"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Theorem</span> trans_eq <span class="op">:</span> <span class="kw">forall</span> a b c <span class="op">:</span> nat, (a <span class="ot">=</span> b) <span class="ot">-&gt;</span> (b <span class="ot">=</span> c) <span class="ot">-&gt;</span> (a <span class="ot">=</span> c)<span class="op">.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Proof</span><span class="op">.</span> intros a b c <span class="dt">H1</span> <span class="dt">H2</span><span class="op">.</span> apply <span class="dt">H1</span><span class="op">.</span> apply <span class="dt">H2</span><span class="op">.</span> <span class="dt">Qed</span><span class="op">.</span></span></code></pre></div>
+<p>Here, <code>apply</code> is used to use the hypotheses and in the proof.</p>
+<h2 data-number="2.3" id="rewrite"><span class="header-section-number">2.3</span> <code>rewrite</code></h2>
+<p><strong>Usage:</strong> Rewrite a goal using a hypothesis or theorem.<br />
+<strong>Example:</strong> Demonstrating rewriting.</p>
+<div class="sourceCode" id="cb3" data-language="haskell"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Theorem</span> rewrite_example <span class="op">:</span> <span class="kw">forall</span> a b c <span class="op">:</span> nat, (a <span class="ot">=</span> b) <span class="ot">-&gt;</span> (a <span class="op">+</span> c <span class="ot">=</span> b <span class="op">+</span> c)<span class="op">.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Proof</span><span class="op">.</span> intros a b c <span class="dt">H</span><span class="op">.</span> rewrite <span class="ot">-&gt;</span> <span class="dt">H</span><span class="op">.</span> reflexivity<span class="op">.</span> <span class="dt">Qed</span><span class="op">.</span></span></code></pre></div>
+<p><code>rewrite -&gt; H</code> rewrites <code>a</code> in the goal with <code>b</code>, using hypothesis <code>H</code>.</p>
+<h2 data-number="2.4" id="reflexivity"><span class="header-section-number">2.4</span> <code>reflexivity</code></h2>
+<p><strong>Usage:</strong> Prove a goal of the form <code>a = a</code>.<br />
+<strong>Example:</strong></p>
+<div class="sourceCode" id="cb4" data-language="haskell"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Lemma</span> use_reflexivity<span class="op">:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    (<span class="op">*</span> <span class="dt">Simple</span> theorem, x always equals x <span class="op">*</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">forall</span> x<span class="op">:</span> <span class="dt">Set</span>, x <span class="ot">=</span> x<span class="op">.</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="dt">Proof</span><span class="op">.</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    (<span class="op">*</span> <span class="dt">Introduce</span> variables<span class="op">/</span>hypotheses <span class="op">*</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    intro<span class="op">.</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    reflexivity<span class="op">.</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="dt">Qed</span><span class="op">.</span></span></code></pre></div>
+<h2 data-number="2.5" id="assumption"><span class="header-section-number">2.5</span> <code>assumption</code></h2>
+<p><strong>Usage:</strong> When the goal is already in the context, you can use <code>assumption</code> to prove it.<br />
+<strong>Example:</strong></p>
+<div class="sourceCode" id="cb5" data-language="haskell"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Lemma</span> p_implies_p <span class="op">:</span> <span class="kw">forall</span> <span class="dt">P</span> <span class="op">:</span> <span class="dt">Prop</span>,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    (<span class="op">*</span> <span class="dt">P</span> implies <span class="dt">P</span> is always true <span class="op">*</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">P</span> <span class="ot">-&gt;</span> <span class="dt">P</span><span class="op">.</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="dt">Proof</span><span class="op">.</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    (<span class="op">*</span> <span class="dt">We</span> can specify names for introduced variables<span class="op">/</span>hypotheses <span class="op">*</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    intros <span class="dt">P</span> <span class="dt">P_holds</span><span class="op">.</span></span></code></pre></div>
+<p>After introducing this hypothesis, <code>P_holds</code> (stating that <code>P</code> is true) into the context, we can use <code>assumption</code> to complete the proof:</p>
+<div class="sourceCode" id="cb6" data-language="haskell"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Lemma</span> p_implies_p <span class="op">:</span> <span class="kw">forall</span> <span class="dt">P</span> <span class="op">:</span> <span class="dt">Prop</span>,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">P</span> <span class="ot">-&gt;</span> <span class="dt">P</span><span class="op">.</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dt">Proof</span><span class="op">.</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    intros <span class="dt">P</span> <span class="dt">P_holds</span><span class="op">.</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    assumption<span class="op">.</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="dt">Qed</span><span class="op">.</span></span></code></pre></div>
+<h1 data-number="3" id="logical-tactics"><span class="header-section-number">3</span> Logical Tactics</h1>
+<h2 data-number="3.1" id="split"><span class="header-section-number">3.1</span> <code>split</code></h2>
+<p><strong>Usage:</strong> Split a conjunction into two separate goals.<br />
+<strong>Example:</strong></p>
+<div class="sourceCode" id="cb7" data-language="haskell"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>split<span class="op">.</span></span></code></pre></div>
+<h2 data-number="3.2" id="left-right"><span class="header-section-number">3.2</span> <code>left / right</code></h2>
+<p><strong>Usage:</strong> Prove a disjunction by proving one of its parts.<br />
+<strong>Example:</strong></p>
+<div class="sourceCode" id="cb8" data-language="haskell"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>left<span class="op">.</span></span></code></pre></div>
+<h2 data-number="3.3" id="exists"><span class="header-section-number">3.3</span> <code>exists</code></h2>
+<p><strong>Usage:</strong> Provide a witness for an existential quantifier.<br />
+<strong>Example:</strong></p>
+<div class="sourceCode" id="cb9" data-language="haskell"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>exists x<span class="op">.</span></span></code></pre></div>
+<h1 data-number="4" id="advanced-tactics"><span class="header-section-number">4</span> Advanced Tactics</h1>
+<h2 data-number="4.1" id="induction"><span class="header-section-number">4.1</span> <code>induction</code></h2>
+<p><strong>Usage:</strong> Apply induction on a variable.<br />
+<strong>Example:</strong></p>
+<div class="sourceCode" id="cb10" data-language="haskell"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>induction n<span class="op">.</span></span></code></pre></div>
+<h2 data-number="4.2" id="inversion"><span class="header-section-number">4.2</span> <code>inversion</code></h2>
+<p><strong>Usage:</strong> Derive information from equality of inductive types.<br />
+<strong>Example:</strong></p>
+<div class="sourceCode" id="cb11" data-language="haskell"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>inversion <span class="dt">H</span><span class="op">.</span></span></code></pre></div>
+<h2 data-number="4.3" id="destruct"><span class="header-section-number">4.3</span> <code>destruct</code></h2>
+<p><strong>Usage:</strong> Case analysis on a variable or hypothesis.<br />
+<strong>Example:</strong></p>
+<div class="sourceCode" id="cb12" data-language="haskell"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>destruct n<span class="op">.</span></span></code></pre></div>
+<h1 data-number="5" id="conclusion"><span class="header-section-number">5</span> Conclusion</h1>
+<p>This cheatsheet offers a glimpse into the powerful tactics at your disposal in Coq. Experimenting with these tactics will deepen your understanding and proficiency in proof construction.</p>
+
+    <div style="clear: both"></div>
+
+    <!-- <footer>
+  <p class="pull-right"><a href="#">Back to top</a></p>
+  <p>TODO Footer Stuff</p>
+</footer> -->
+
+<footer id="footer">
+
+  <div id="social">
+    <a href="https://www.linkedin.com/in/ryan-paul-williams/" title="linkedin" target="_blank">
+      <i class="fab fa-linkedin"></i>
+    </a>
+    <a href="https://scholar.google.com/citations?user=CZxMp1YAAAAJ&hl=en" title="google scholar" target="_blank">
+      <i class="fas fa-graduation-cap"></i>
+    <a href="https://github.com/williamsryan" title="github" target="_blank">
+      <i class="fab fa-github"></i>
+    </a>
+    <a href="mailto:ryan.rpwilliams@gmail.com" title="email">
+      <i class="far fa-envelope"></i>
+    </a>
+  </div>
+
+</footer>
+</div>
+        </article>
+    </div>
+    <!-- Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+<!-- For social icons -->
+<script src="https://kit.fontawesome.com/0c986e42a3.js"></script>
+
+<!-- PrismJs -->
+<script src="../js/prism.js"></script>
+
+<!-- MathJax -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  "HTML-CSS": {
+    preferredFont: null,
+    availableFonts: [],
+    webFont: "Gyre-Pagella"
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</body>
+
+</html>
