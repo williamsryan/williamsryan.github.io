@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content>
+    <meta name="author" content>
+    <link rel="icon" href="favicon.ico">
+
+    <title>Ryan Williams | Datalog for Program Analysis</title>
+
+    <!-- Adobe Fonts --->
+    <link rel="stylesheet" href="https://use.typekit.net/teo1mav.css">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="../style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar navbar-expand-md navbar-light navbar-fixed-top">
+    <div class="container-fluid">
+
+        <a class="navbar-brand" href="../" style="color:maroon;">Ryan Williams</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav ml-auto">
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="/about.html">About</a>
+                </li> -->
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../publications">Publications</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../projects">Projects</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../teaching">Teaching</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../talks">Talks</a>
+                </li>
+
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="/posts.html">Posts</a>
+                </li> -->
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../cv">CV</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<hr class="featurette-divider">
+        <article class="page">
+            <div class="entry-content">
+    <h1 class="note-title">Datalog for Program Analysis</h1>
+<div class="soft">
+  <span class="date">Date: 2024-06-13</span>
+</div>
+
+<h2>Table of Contents</h2><ul>
+<li><a href="#introduction" id="toc-introduction"><span class="toc-section-number">1</span> Introduction</a>
+<ul>
+<li><a href="#what-is-datalog" id="toc-what-is-datalog"><span class="toc-section-number">1.1</span> What is Datalog?</a>
+<ul>
+<li><a href="#syntax" id="toc-syntax"><span class="toc-section-number">1.1.1</span> Syntax</a></li>
+<li><a href="#setting-up-datalog" id="toc-setting-up-datalog"><span class="toc-section-number">1.1.2</span> Setting Up Datalog</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#your-first-datalog-program" id="toc-your-first-datalog-program"><span class="toc-section-number">2</span> Your First Datalog Program</a>
+<ul>
+<li><a href="#facts" id="toc-facts"><span class="toc-section-number">2.1</span> Facts</a></li>
+<li><a href="#rules" id="toc-rules"><span class="toc-section-number">2.2</span> Rules</a></li>
+<li><a href="#query" id="toc-query"><span class="toc-section-number">2.3</span> Query</a></li>
+</ul></li>
+<li><a href="#applying-datalog-to-program-analysis" id="toc-applying-datalog-to-program-analysis"><span class="toc-section-number">3</span> Applying Datalog to Program Analysis</a></li>
+</ul>
+<h1 data-number="1" id="introduction"><span class="header-section-number">1</span> Introduction</h1>
+<p>Welcome to the first installment of our tutorial series on leveraging Datalog for program analysis. In this series, we will explore the fundamentals of Datalog, its syntax, and how it can be applied to solve various program analysis problems. Datalog is a powerful declarative logic programming language that is particularly well-suited for querying relational data, making it an excellent tool for program analysis.</p>
+<h2 data-number="1.1" id="what-is-datalog"><span class="header-section-number">1.1</span> What is Datalog?</h2>
+<p>Datalog is a declarative logic programming language that is a subset of Prolog. It is used primarily for deductive databases and declarative queries. Unlike imperative languages, Datalog focuses on what the program should accomplish rather than how to achieve it.</p>
+<h3 data-number="1.1.1" id="syntax"><span class="header-section-number">1.1.1</span> Syntax</h3>
+<p>The syntax of Datalog is based on facts, rules, and queries.</p>
+<p><strong>Facts:</strong> Represent basic assertions about the world. For example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>parent(<span class="ot">&quot;</span><span class="er">enzo</span><span class="ot">&quot;</span><span class="kw">,</span> <span class="ot">&quot;</span><span class="er">mia</span><span class="ot">&quot;</span>)<span class="kw">.</span></span></code></pre></div>
+<p><strong>Rules:</strong> Define relationships between facts using logical implications. For example:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ancestor(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ancestor(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">,</span> ancestor(<span class="dt">Z</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span></code></pre></div>
+<p><strong>Queries:</strong> Questions posed to the Datalog system to infer information based on the facts and rules. For example:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> ancestor(<span class="ot">&quot;</span><span class="er">enzo</span><span class="ot">&quot;</span><span class="kw">,</span> <span class="ot">&quot;</span><span class="er">mia</span><span class="ot">&quot;</span>)<span class="kw">.</span></span></code></pre></div>
+<h3 data-number="1.1.2" id="setting-up-datalog"><span class="header-section-number">1.1.2</span> Setting Up Datalog</h3>
+<p>To get started with Datalog, you’ll need an environment that supports Datalog queries. One popular choice is <a href="https://souffle-lang.github.io/">Soufflé</a>, a Datalog engine that is efficient and easy to use.</p>
+<p><strong>Installation:</strong><br />
+<br />
+For Linux:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install souffle</span></code></pre></div>
+<p>For macOS:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install souffle-lang/souffle/souffle</span></code></pre></div>
+<h1 data-number="2" id="your-first-datalog-program"><span class="header-section-number">2</span> Your First Datalog Program</h1>
+<p>Let’s write a simple Datalog program to understand its structure. Consider a program that defines family relationships.</p>
+<h2 data-number="2.1" id="facts"><span class="header-section-number">2.1</span> Facts</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>parent(<span class="ot">&quot;</span><span class="er">enzo</span><span class="ot">&quot;</span><span class="kw">,</span> <span class="ot">&quot;</span><span class="er">mia</span><span class="ot">&quot;</span>)<span class="kw">.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>parent(<span class="ot">&quot;</span><span class="er">mia</span><span class="ot">&quot;</span><span class="kw">,</span> <span class="ot">&quot;</span><span class="er">piper</span><span class="ot">&quot;</span>)<span class="kw">.</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>parent(<span class="ot">&quot;</span><span class="er">piper</span><span class="ot">&quot;</span><span class="kw">,</span> <span class="ot">&quot;</span><span class="er">owen</span><span class="ot">&quot;</span>)<span class="kw">.</span></span></code></pre></div>
+<h2 data-number="2.2" id="rules"><span class="header-section-number">2.2</span> Rules</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ancestor(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ancestor(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">,</span> ancestor(<span class="dt">Z</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span></code></pre></div>
+<h2 data-number="2.3" id="query"><span class="header-section-number">2.3</span> Query</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="al">.</span>output ancestor</span></code></pre></div>
+<p>Now, save the above content into a file called <code>family.dl</code> and run it using Soufflé:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">souffle</span> <span class="at">-D</span> . family.dl</span></code></pre></div>
+<p>Wait, that didn’t seem to work correctly, what’s missing?</p>
+<div class="definition">
+<p><strong>Definition 1</strong> (decls). To actually use these rules, we need to declare the respective types using the <code>.decl</code> directive.</p>
+</div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="al">.</span>decl parent (n<span class="fu">:</span> symbol<span class="kw">,</span> m<span class="fu">:</span> symbol)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">.</span>decl ancestor (n<span class="fu">:</span> symbol<span class="kw">,</span> m<span class="fu">:</span> symbol)</span></code></pre></div>
+<p>So now the full <code>family.dl</code> should look like:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="al">.</span>decl parent (n<span class="fu">:</span> symbol<span class="kw">,</span> m<span class="fu">:</span> symbol)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>parent(<span class="ot">&quot;</span><span class="er">enzo</span><span class="ot">&quot;</span><span class="kw">,</span> <span class="ot">&quot;</span><span class="er">mia</span><span class="ot">&quot;</span>)<span class="kw">.</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>parent(<span class="ot">&quot;</span><span class="er">mia</span><span class="ot">&quot;</span><span class="kw">,</span> <span class="ot">&quot;</span><span class="er">piper</span><span class="ot">&quot;</span>)<span class="kw">.</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>parent(<span class="ot">&quot;</span><span class="er">piper</span><span class="ot">&quot;</span><span class="kw">,</span> <span class="ot">&quot;</span><span class="er">owen</span><span class="ot">&quot;</span>)<span class="kw">.</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="al">.</span>decl ancestor (n<span class="fu">:</span> symbol<span class="kw">,</span> m<span class="fu">:</span> symbol)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>ancestor(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>ancestor(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">,</span> ancestor(<span class="dt">Z</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="al">.</span>output ancestor</span></code></pre></div>
+<p>Which will output a CSV file, <code>ancestor.csv</code>, showing all the relationships in the input program (the facts):</p>
+<pre><code>enzo	mia
+enzo	piper
+enzo	owen
+mia	piper
+mia	owen
+piper	owen</code></pre>
+<h1 data-number="3" id="applying-datalog-to-program-analysis"><span class="header-section-number">3</span> Applying Datalog to Program Analysis</h1>
+<p>Datalog can be a powerful tool for program analysis due to its ability to express complex relationships in a concise manner. Let’s consider a simple example of points-to analysis, which is used to determine what pointers can point to at various points in a program.</p>
+<p>TODO.<br />
+<br />
+</p>
+
+    <div style="clear: both"></div>
+
+    <!-- <footer>
+  <p class="pull-right"><a href="#">Back to top</a></p>
+  <p>TODO Footer Stuff</p>
+</footer> -->
+
+<footer id="footer">
+
+  <div id="social">
+    <a href="https://www.linkedin.com/in/ryan-paul-williams/" title="linkedin" target="_blank">
+      <i class="fab fa-linkedin"></i>
+    </a>
+    <a href="https://scholar.google.com/citations?user=CZxMp1YAAAAJ&hl=en" title="google scholar" target="_blank">
+      <i class="fas fa-graduation-cap"></i>
+    <a href="https://github.com/williamsryan" title="github" target="_blank">
+      <i class="fab fa-github"></i>
+    </a>
+    <a href="mailto:ryan.rpwilliams@gmail.com" title="email">
+      <i class="far fa-envelope"></i>
+    </a>
+  </div>
+
+</footer>
+</div>
+        </article>
+    </div>
+    <!-- Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+<!-- For social icons -->
+<script src="https://kit.fontawesome.com/0c986e42a3.js"></script>
+
+<!-- PrismJs -->
+<script src="../js/prism.js"></script>
+
+<!-- MathJax -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  "HTML-CSS": {
+    preferredFont: null,
+    availableFonts: [],
+    webFont: "Gyre-Pagella"
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</body>
+
+</html>
